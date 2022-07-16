@@ -9,11 +9,9 @@ function Navbar(props) {
     <div>
       <p>No. {props.number}</p>
       <p>{props.name}</p>
-      <p>{props.title}</p>
       <p>MALE/FEMALEicon</p>
       <p>SHINYicon</p>
       <Link to="/">ALL POKÉMON</Link>
-      <p>-----HORIZONTALBAR-----</p>
     </div>
   );}
 
