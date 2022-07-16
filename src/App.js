@@ -1,14 +1,15 @@
-import Navbar from './Components/Navbar';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Navbar from "./components/Navbar";
 
-import logo from "./logo.svg";
+//import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <Router>
         <Navbar name="person" />
-      </header>
+      </Router>
     </div>
   );
 }
