@@ -12,7 +12,9 @@ function Navbar(props) {
         <li>{props.name}</li>
         <li>MALE/FEMALEicon</li>
         <li>SHINYicon</li>
-        <Link to="/">ALL POKÉMON</Link>
+        <Link to="/" className="text-3xl font-bold underline">
+          ALL POKÉMON
+        </Link>
       </ul>
     </div>
   );}
