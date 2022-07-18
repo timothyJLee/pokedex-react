@@ -6,12 +6,14 @@ import "./Navbar.css";
 
 function Navbar(props) {
   return (
-    <div>
-      <p>No. {props.number}</p>
-      <p>{props.name}</p>
-      <p>MALE/FEMALEicon</p>
-      <p>SHINYicon</p>
-      <Link to="/">ALL POKÉMON</Link>
+    <div className="Nav-header">
+      <ul>
+        <li>No. {props.number}</li>
+        <li>{props.name}</li>
+        <li>MALE/FEMALEicon</li>
+        <li>SHINYicon</li>
+        <Link to="/">ALL POKÉMON</Link>
+      </ul>
     </div>
   );}
 
