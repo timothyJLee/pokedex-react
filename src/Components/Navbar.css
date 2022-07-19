@@ -1,10 +1,57 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+img {
+    max-width: 2vh;
+    max-height: 1.5vh;
+    display: inline;
+}
+
 .Nav-header {
     background-color: #8365bb;
-    min-height: 10vh;
-    display: flex;
-    flex-direction: column;
+    max-height: 10vh;
+    display: inline-flexbox;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     font-size: calc(10px + 2vmin);
     color: white;
+}
+
+.topnav-center {
+    float: none;
+    position: absolute;
+    top: 1.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+    float: right;
+}
+
+/* Responsive navigation menu (for mobile devices) */
+@media screen and (max-width: 600px) {
+
+    .topnav a,
+    .topnav-right {
+        float: none;
+        display: block;
+    }
+
+    .topnav-centered a {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
+    }
 }
