@@ -7,32 +7,30 @@ import "./Navbar.css";
 import femaleIcon from "./images/female.png";
 import maleIcon from "./images/male.png";
 import shinyIcon from "./images/shiny.png";
+import pokeballIcon from "./images/pokeball.png";
 
 function Navbar(props) {
   return (
-    <nav className="Nav-header">
-      <div>
-        <ul>
-          <li>No. {props.number}32</li>
-          <li className="topnav-center">{props.name}</li>
-          <div className="topnav-right">
-            <li>
-              <img src={femaleIcon} />
-            </li>
-            <li>
-              <img src={maleIcon} />
-            </li>
-            <li>
-              <img src={shinyIcon} />
-            </li>
-            <li>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Pok%C3%A9mon_Flying_Type_Icon.svg" />
-            </li>
-            <Link to="/">ALL POKÉMON</Link>
-          </div>
-        </ul>
+    <div className="topnav">
+
+      <p className="topnav-center">{props.name}</p>
+
+      <div >
+        <img className="pokeball-img" src={pokeballIcon} />
+        <p>No. {props.number}722</p>
       </div>
-    </nav>
+
+      <div className="topnav-right">
+        <div className="circleBase circle2">
+          <img className="gender-img" src={femaleIcon} />
+        </div>
+        <div className="circleBase circle1">
+          <img className="gender-img" src={maleIcon} />
+        </div>
+        <img src={shinyIcon} />
+        <Link to="/">ALL POKÉMON</Link>
+      </div>
+    </div>
   );}
 
 export default Navbar;

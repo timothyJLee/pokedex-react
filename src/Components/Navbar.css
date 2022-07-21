@@ -1,29 +1,67 @@
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
 
-li {
-    float: left;
-}
+
+
 
 img {
-    max-width: 2vh;
-    max-height: 1.5vh;
-    display: inline;
+    max-width: 3vh;
+    max-height: 2vh;
 }
 
-.Nav-header {
+.gender-img {
+    max-width: 2vh;
+    max-height: 1.5vh;
+}
+
+.circleBase {
+    border-radius: 50%;
+    
+}
+
+.circle1 {
+
+    width: 2vh;
+    height: 2vh;
+    background: #ff0000;
+    border: 1px solid #000;
+}
+
+.circle2 {
+    width: 2vh;
+    height: 2vh;
+    background: #1500ff;
+    border: 1px solid #000;
+}
+
+.topnav {
+    position: relative;
+    overflow: hidden;
     background-color: #8365bb;
     max-height: 10vh;
-    display: inline-flexbox;
+   /* display: inline-flexbox;
     flex-direction: row;
-    align-items: center;
-    justify-content: left;
-    font-size: calc(10px + 2vmin);
-    color: white;
+    align-items: left;
+    justify-content: left; */
+    font-size: calc(10px + 2vmin); 
+    color: white; 
+}
+
+.topnav p {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    text-decoration: none;
+    font-size: 2vh;
+}
+
+.pokeball-img {
+    float: left;
+    max-width: 3vh;
+    max-height: 3vh;
+}
+
+.topnav-left {
+    float: left;
+    position: absolute;
 }
 
 .topnav-center {
@@ -37,6 +75,8 @@ img {
 /* Right-aligned section inside the top navigation */
 .topnav-right {
     float: right;
+    flex-direction: row-reverse;
+    position: relative;
 }
 
 /* Responsive navigation menu (for mobile devices) */
