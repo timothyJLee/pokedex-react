@@ -6,8 +6,8 @@
     position: relative;
     overflow: hidden;
     background-color: #8365bb;
-    max-height: 10vh;
-    align-items: center;
+    max-height: 5vh;
+    font-size: 2vh;
    /* display: inline-flexbox;
     flex-direction: row;
     align-items: left;
@@ -19,10 +19,6 @@
 .topnav p {
     float: left;
     color: #f2f2f2;
-    text-align: center;
-    text-decoration: none;
-    font-size: 2vh;
-    text-decoration: none;
 }
 
 .topnav p:hover {
@@ -36,7 +32,7 @@
     max-height: 3vh;
 }
 
-.topnav-center p {
+.topnav-center {
     float: none;
     position: absolute;
     left: 50%;

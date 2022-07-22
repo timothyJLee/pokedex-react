@@ -16,10 +16,8 @@ function Navbar(props) {
         <p>{props.name}</p>
       </div>
 
-      <div class="topnav-left">
         <img className="pokeball-img" src={pokeballIcon} />
         <p>No. {props.number}722</p>
-      </div>
 
       <div className="topnav-right">
         <div >
