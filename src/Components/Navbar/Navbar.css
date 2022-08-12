@@ -1,0 +1,24 @@
+
+.circleBase {
+    border-radius: 50%;
+}
+
+ .circle1 {
+    width: 2vh;
+    height: 2vh;
+    background: #ff0000;
+    border: 1px solid #000;
+}
+
+.circle2 {
+    width: 2vh;
+    height: 2vh;
+    background: #1500ff;
+    border: 1px solid #000;
+}
+
+/* Responsive navigation menu (for mobile devices) */
+@media screen and (max-width: 600px) {
+
+
+}
