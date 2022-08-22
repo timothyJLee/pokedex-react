@@ -44,7 +44,7 @@ function Navbar(props) {
 
         <CenterNav>
           <NavLink to="/name">
-            <span>Rowlett</span>
+            <span>{props.name}</span>
           </NavLink>
         </CenterNav>
         
