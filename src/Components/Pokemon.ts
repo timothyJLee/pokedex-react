@@ -3,13 +3,11 @@ import React from "react";
 import Pokedex from "pokedex-promise-v2";
 
 
-class Pokemon extends React.Component {
-    constructor(props){
-        super(props);
+function Pokemon(props : any){
 
-
-    }
   const P = new Pokedex();
+
+let pokemon;
 
   P.getPokemonByName("pikachu") // with Promise
     .then((response) => {
@@ -24,15 +22,9 @@ class Pokemon extends React.Component {
     console.log(response.results);
   });
 
-  componentDidMount() {
-  }
 
-  componentWillUnmount() {
-  }
-
-
-
- render() {
-    return 
+    return {
   }
 }
+
+export default Pokemon;

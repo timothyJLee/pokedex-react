@@ -27,7 +27,7 @@ function App(props) {
   return (
     <div className="App">
       <Router>
-        <Pokemon />
+        <Pokemon  />
         <Navbar name={"e"} />
       </Router>
     </div>
