@@ -11,8 +11,9 @@ function App(props) {
 
 
   const [pokemon, setPokemon] = useState("null");
-  const [pokeAbility, setPokeAbility] = useState("null");
-  const [data, setData] = useState(null);
+  const [userInput, setUserInput] = useState("null");
+  //const [pokeAbility, setPokeAbility] = useState("null");
+  //const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(true);
 
@@ -34,14 +35,15 @@ function App(props) {
 useEffect(() => {
   const getData = async () => {
     try {
+      let id = 1;
       const response = await axios.get(
-        `https://jsonplaceholder.typicode.com/posts?_limit=10`
+        `https://pokeapi.co/api/v2/pokemon/${id}`
       );
-      setData(response.data);
+      setPokemon(response.data);
       setError(null);
     } catch (err) {
       setError(err.message);
-      setData(null);
+      setPokemon(null);
     } finally {
       setLoading(false);
     }
@@ -52,7 +54,7 @@ useEffect(() => {
   return (
     <div className="App">
       <Router>
-        <Navbar name={"e"} />
+        <Navbar name={pokemon.name} />
       </Router>
     </div>
   );
