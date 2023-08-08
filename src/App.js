@@ -54,7 +54,7 @@ useEffect(() => {
   return (
     <div className="App">
       <Router>
-        <Navbar name={pokemon.name} />
+        <Navbar pokemon={pokemon} />
       </Router>
     </div>
   );

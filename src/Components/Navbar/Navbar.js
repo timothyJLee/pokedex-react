@@ -19,22 +19,22 @@ function Navbar(props) {
     <>
       <NavContainer>
         <Nav>
-          <NavLink to="/poke">
+          <NavLink to= {props.pokemon.id.toString() + "/poke"}>
             <NavImg src={pokeballIcon} alt="logo" />
           </NavLink>
-          <NavLink to="/number">
-            <span>No. {props.number}722</span>
+          <NavLink to={props.pokemon.id.toString() + "/number"}>
+            <span>No. {props.pokemon.id}</span>
           </NavLink>
         </Nav>
 
         <RightNav>
-          <NavLink to="/male">
+          <NavLink to={props.pokemon.id.toString() + "/male"}>
             <NavImg src={maleIcon} alt="logo" />
           </NavLink>
-          <NavLink to="/female">
+          <NavLink to={props.pokemon.id.toString() + "/female"}>
             <NavImg src={femaleIcon} alt="logo" />
           </NavLink>
-          <NavLink to="/shiny">
+          <NavLink to={props.pokemon.id.toString() + "/shiny"}>
             <NavImg src={shinyIcon} alt="logo" />
           </NavLink>
           <NavLink to="/all">
@@ -43,8 +43,8 @@ function Navbar(props) {
         </RightNav>
 
         <CenterNav>
-          <NavLink to="/name">
-            <span>{props.name}</span>
+          <NavLink to={props.pokemon.id.toString() + "/name"}>
+            <span>{props.pokemon.name}</span>
           </NavLink>
         </CenterNav>
         
