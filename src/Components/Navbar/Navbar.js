@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 
 //import "./Navbar.css";
 
@@ -15,13 +15,21 @@ import {
 } from "./NavbarStyledElements";
 
 function Navbar(props) {
+  const [input, setInput] = useState("");
+
+  const handleMouseEnter = () => {};
+  const handleInput = (e) => {
+    setInput(e.target.value);
+  };
+
   return (
     <>
       <NavContainer>
         <Nav>
           <NavLink
             to={
-              props.pokemon.id.toString() + "/" + props.pokemon.name.toString()}
+              props.pokemon.id.toString() + "/" + props.pokemon.name.toString()
+            }
           >
             <NavImg src={pokeballIcon} alt="logo" />
           </NavLink>
@@ -69,42 +77,17 @@ function Navbar(props) {
           >
             <span>{props.pokemon.name}</span>
           </NavLink>
+          <input
+            type="text"
+            value={input}
+            onChange={handleInput}
+            defaultValue="Enter Name or No."
+          />
         </CenterNav>
       </NavContainer>
+      <span><p>{input}</p></span>
     </>
   );   
   }
-
-  /*  
-  <div className="topnav">
-      <div class="topnav-center">
-        <p>{props.name}</p>
-      </div>
-
-        <img className="pokeball-img" src={pokeballIcon} />
-        <p>No. {props.number}722</p>
-
-      <div className="topnav-right">
-        <div >
-          <img className="circleBase circle2" src={femaleIcon} />
-        </div>
-        <div>
-          <img className="circleBase circle1" src={maleIcon} />
-        </div>
-
-        <div>
-          <img src={shinyIcon} />
-        </div>
-
-        <div>
-          <Link to="/">ALL POKÉMON</Link>
-        </div>
-      </div>
-    </div>
-
-          <CenterNav>
-        <NavLink to="/name">Rowlett</NavLink>
-      </CenterNav>
-  */
 
 export default Navbar;
