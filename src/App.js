@@ -9,7 +9,7 @@ import "./App.css";
 
 function App(props) {
   const [pokemon, setPokemon] = useState([]);
-  //const [userInput, setUserInput] = useState("null");
+  const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -39,7 +39,10 @@ let id = 1;
 
   return (
     <div className="App">
-      <Router>{!loading && <Navbar pokemon={pokemon} />}</Router>
+      <Router>
+        {!loading && <Navbar pokemon={pokemon} setUserInput={setUserInput} />}
+        <span><p>{userInput}</p></span>
+      </Router>
     </div>
   );
 }

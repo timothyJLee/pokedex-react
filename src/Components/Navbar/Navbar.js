@@ -19,6 +19,7 @@ function Navbar(props) {
 
   const handleMouseEnter = () => {};
   const handleInput = (e) => {
+    props.setUserInput(e.target.value);
     setInput(e.target.value);
   };
 
