@@ -33,10 +33,6 @@ let id = 1;
     getData();
   },[]);
 
-  if (!loading) {
-    console.log("the id is: " + pokemon.id);
-  }
-
   return (
     <div className="App">
       <Router>

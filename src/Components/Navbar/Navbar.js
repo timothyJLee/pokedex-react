@@ -1,5 +1,6 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 //import "./Navbar.css";
 
@@ -16,11 +17,51 @@ import {
 
 function Navbar(props) {
   const [input, setInput] = useState("");
+  const [pokeNames, setPokeNames] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+   useEffect(() => {
+   const getData = async () => {
+     try {
+       const response = await axios.get(
+         `https://pokeapi.co/api/v2/pokemon?limit=100000`
+       );
+       setPokeNames(await response.data);
+       setError(null);
+     } catch (err) {
+       setError(err.message);
+       setPokeNames(null);
+       console.log("The error is " + error);
+     } finally {
+       setLoading(false);
+     }
+   };
+   getData();
+ }, []); 
 
   const handleMouseEnter = () => {};
   const handleInput = (e) => {
-    props.setUserInput(e.target.value);
     setInput(e.target.value);
+    if (isValid(e.target.value)) {
+      props.setUserInput(e.target.value);
+    }
+  };
+
+  const isValid = (input) => {
+    if (!loading) {
+      if (typeof input === 'number'){
+        if (input <= pokeNames.count && input > 0) {
+          return true;
+        }
+      }
+      if (typeof input === 'string'){
+        /* if input exists in pokeNames.results object
+            return true
+        */
+      }
+    }
+    return false;
   };
 
   return (
@@ -82,13 +123,15 @@ function Navbar(props) {
             type="text"
             value={input}
             onChange={handleInput}
-            defaultValue="Enter Name or No."
           />
         </CenterNav>
       </NavContainer>
-      <span><p>{input}</p></span>
+      <div>
+        <p>{input}</p>
+      </div>
+      {!loading && <div><p>{pokeNames.count}</p></div>}
     </>
-  );   
-  }
+  );
+}
 
 export default Navbar;
