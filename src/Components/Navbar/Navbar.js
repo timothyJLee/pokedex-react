@@ -129,7 +129,7 @@ function Navbar(props) {
       <div>
         <p>{input}</p>
       </div>
-      {!loading && <div><p>{pokeNames.count}</p></div>}
+      {!loading && <div><p>{JSON.stringify(pokeNames.results)}</p></div>}
     </>
   );
 }
