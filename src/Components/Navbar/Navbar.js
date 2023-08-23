@@ -44,21 +44,26 @@ function Navbar(props) {
   const handleInput = (e) => {
     setInput(e.target.value);
     if (isValid(e.target.value)) {
+      console.log("true, value is: " + e.target.value);
       props.setUserInput(e.target.value);
+    } else {
+      console.log("false, value is: " + e.target.value);
     }
   };
 
   const isValid = (input) => {
     if (!loading) {
-      if (typeof input === 'number'){
-        if (input <= pokeNames.count && input > 0) {
-          return true;
-        }
+      const numRegEx = /^[0-9]+$/;
+      const alphaRegEx = /^[a-zA-Z]+$/;
+      if (input.match(numRegEx) && (input <= pokeNames.count && input > 0)){
+        return true;
       }
-      if (typeof input === 'string'){
-        /* if input exists in pokeNames.results object
-            return true
-        */
+
+      if (input.match(alphaRegEx))
+        console.log("true");
+
+      if (input.match(alphaRegEx) && Object.values(pokeNames.results).includes(input)) {
+        return true;
       }
     }
     return false;
@@ -129,7 +134,6 @@ function Navbar(props) {
       <div>
         <p>{input}</p>
       </div>
-      {!loading && <div><p>{JSON.stringify(pokeNames.results)}</p></div>}
     </>
   );
 }
