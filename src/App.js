@@ -9,7 +9,7 @@ import "./App.css";
 
 function App(props) {
   const [pokemon, setPokemon] = useState([]);
-  const [userInput, setUserInput] = useState("");
+  const [userInput, setUserInput] = useState("bulbasaur");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -18,7 +18,7 @@ let id = 1;
     const getData = async () => {
       try {
         const response = await axios.get(
-          `https://pokeapi.co/api/v2/pokemon/${id}`
+          `https://pokeapi.co/api/v2/pokemon/${userInput}`
         );
         setPokemon(await response.data);
         setError(null);
@@ -31,7 +31,7 @@ let id = 1;
       }
     };
     getData();
-  },[]);
+  }, [userInput]);
 
   return (
     <div className="App">
