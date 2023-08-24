@@ -58,17 +58,17 @@ function Navbar(props) {
       if (input.match(numRegEx) && (input <= pokeNames.count && input > 0)){
         return true;
       }
-      if (input.match(alphaRegEx)) {
-        pokeNames.results.forEach((result) => {
-          console.log(typeof result);
-          if (Object.values(result).includes(input)) {
-            return true;
-          }
-        });
+      
+    if (input.match(alphaRegEx)) {
+      for(let i = 0; i < pokeNames.count; i++){
+        if (input === pokeNames.results[i].name) {
+          return true;
+        }
       }
     }
     return false;
   };
+}
 
   return (
     <>
