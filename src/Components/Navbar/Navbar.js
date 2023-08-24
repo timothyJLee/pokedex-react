@@ -21,24 +21,23 @@ function Navbar(props) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-   useEffect(() => {
-   const getData = async () => {
-     try {
-       const response = await axios.get(
-         `https://pokeapi.co/api/v2/pokemon?limit=100000`
-       );
-       setPokeNames(await response.data);
-       setError(null);
-     } catch (err) {
-       setError(err.message);
-       setPokeNames(null);
-       console.log("The error is " + error);
-     } finally {
-       setLoading(false);
-     }
-   };
-   getData();
- }, []); 
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon?limit=100000`);
+        setPokeNames(await response.data);
+        setError(null);
+      } catch (err) {
+        setError(err.message);
+        setPokeNames(null);
+        console.log("The error is " + error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getData();
+  }, []); 
 
   const handleMouseEnter = () => {};
   const handleInput = (e) => {
@@ -57,8 +56,7 @@ function Navbar(props) {
       const alphaRegEx = /^[a-zA-Z]+$/;
       if (input.match(numRegEx) && (input <= pokeNames.count && input > 0)){
         return true;
-      }
-      
+      }      
     if (input.match(alphaRegEx)) {
       for(let i = 0; i < pokeNames.count; i++){
         if (input === pokeNames.results[i].name) {
@@ -67,8 +65,7 @@ function Navbar(props) {
       }
     }
     return false;
-  };
-}
+  };}
 
   return (
     <>
