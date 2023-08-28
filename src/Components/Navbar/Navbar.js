@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-//import "./Navbar.css";
+import "./Navbar.css";
 
 import femaleIcon from "../images/female.png";
 import maleIcon from "../images/male.png";
@@ -39,14 +39,18 @@ function Navbar(props) {
     getData();
   }, []); 
 
-  const handleMouseEnter = () => {};
+  const handleMouseEnter = (e) => {
+    document.getElementsByClassName("box").style.zIndex = 2;
+  };
+  const handleMouseLeave = (e) => {
+    document.getElementsByClassName("box").style.zIndex = -1;
+  };
   const handleInput = (e) => {
     setInput(e.target.value);
     if (isValid(e.target.value)) {
       console.log("true, value is: " + e.target.value);
       props.setUserInput(e.target.value);
     } else {
-      console.log("false, value is: " + e.target.value);
     }
   };
 
@@ -54,15 +58,20 @@ function Navbar(props) {
     if (!loading) {
       const numRegEx = /^[0-9]+$/;
       const alphaRegEx = /^[a-zA-Z]+$/;
-      if (input.match(numRegEx) && (input <= pokeNames.count && input > 0)){
-        return true;
+      if (input.match(numRegEx)){
+        if (input <= pokeNames.count && input > 0) {
+          return true;
+        } else{
+          //Set validation msg, "Input number 1 - pokeNames.count"
+        }
       }      
     if (input.match(alphaRegEx)) {
-      for(let i = 0; i < pokeNames.count; i++){
+      for (let i = 0; i < pokeNames.count; i++) {
         if (input === pokeNames.results[i].name) {
           return true;
         }
       }
+      // Set validation msg, "Input proper Pokemon name..."
     }
     return false;
   };}
@@ -122,12 +131,15 @@ function Navbar(props) {
           >
             <span>{props.pokemon.name}</span>
           </NavLink>
+        </CenterNav>
+        <div className="container">
           <input
+            className="box"
             type="text"
             value={input}
             onChange={handleInput}
           />
-        </CenterNav>
+        </div>
       </NavContainer>
       <div>
         <p>{input}</p>
