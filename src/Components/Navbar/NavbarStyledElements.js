@@ -17,6 +17,7 @@ export const Nav = styled.nav`
   display: flex;
   align-items: center;
   margin-right: auto;
+  margin-left: 5px;
 `;
 
 export const CenterNav = styled.nav`
@@ -30,6 +31,7 @@ export const RightNav = styled.nav`
   display: flex;
   align-items: center;
   margin-left: auto;
+  margin-right: 5px;
 `;
 
 export const NavLink = styled(Link)`
