@@ -37,8 +37,7 @@ let id = 1;
     <div className="App">
       <Router>
         {!loading && <Navbar pokemon={pokemon} setUserInput={setUserInput} />}
-        <span><p>{userInput}</p></span>
-      </Router>
+       </Router>
     </div>
   );
 }

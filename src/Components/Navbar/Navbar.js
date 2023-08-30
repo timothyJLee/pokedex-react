@@ -20,6 +20,7 @@ function Navbar(props) {
   const [pokeNames, setPokeNames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [validateMsg, setValidateMsg] = useState("Enter PokéName or No.");
 
   useEffect(() => {
     const getData = async () => {
@@ -39,12 +40,14 @@ function Navbar(props) {
     getData();
   }, []); 
 
-  const handleMouseEnter = (e) => {
-    document.getElementsByClassName("box").style.zIndex = 2;
-  };
-  const handleMouseLeave = (e) => {
-    document.getElementsByClassName("box").style.zIndex = -1;
-  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      document.getElementsByClassName("box")[0].blur();
+      // Set inner text of input box to pokemon name
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, [input]);
+
   const handleInput = (e) => {
     setInput(e.target.value);
     if (isValid(e.target.value)) {
@@ -97,6 +100,44 @@ function Navbar(props) {
         </Nav>
 
         <RightNav>
+          <NavLink to="/all">
+            <span>ALL POKEMON</span>
+          </NavLink>
+        </RightNav>
+
+        <CenterNav>
+          <NavLink
+            to={
+              props.pokemon.id.toString() + "/" + props.pokemon.name.toString()
+            }
+          >
+            <span>{props.pokemon.name}</span>
+          </NavLink>
+        </CenterNav>
+
+        <div className="container">
+          <input
+            className="box"
+            type="text"
+            value={input}
+            onChange={handleInput}
+          />
+        </div>
+      </NavContainer>
+
+      <div>
+        <p>{validateMsg}</p>
+      </div>
+    </>
+  );
+}
+
+export default Navbar;
+
+
+
+
+/* 
           <NavLink
             to={
               props.pokemon.id.toString() + "/" + props.pokemon.name.toString()
@@ -118,34 +159,4 @@ function Navbar(props) {
           >
             <NavImg src={shinyIcon} alt="logo" />
           </NavLink>
-          <NavLink to="/all">
-            <span>ALL POKEMON</span>
-          </NavLink>
-        </RightNav>
-
-        <CenterNav>
-          <NavLink
-            to={
-              props.pokemon.id.toString() + "/" + props.pokemon.name.toString()
-            }
-          >
-            <span>{props.pokemon.name}</span>
-          </NavLink>
-        </CenterNav>
-        <div className="container">
-          <input
-            className="box"
-            type="text"
-            value={input}
-            onChange={handleInput}
-          />
-        </div>
-      </NavContainer>
-      <div>
-        <p>{input}</p>
-      </div>
-    </>
-  );
-}
-
-export default Navbar;
+*/
