@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-import "./Navbar.css";
+import Sidebar from "./Sidebar/Sidebar";
+
 
 import femaleIcon from "../images/female.png";
 import maleIcon from "../images/male.png";
@@ -21,6 +22,7 @@ function Navbar(props) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [validateMsg, setValidateMsg] = useState("Enter PokéName or No.");
+  const [sidebar, setSidebar] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -79,6 +81,8 @@ function Navbar(props) {
     return false;
   };}
 
+  const showSidebar = () => setSidebar(!sidebar);
+
   return (
     <>
       <NavContainer>
@@ -124,6 +128,10 @@ function Navbar(props) {
           />
         </div>
       </NavContainer>
+
+      <Sidebar>
+        
+      </Sidebar>
 
       <div>
         <p>{validateMsg}</p>
