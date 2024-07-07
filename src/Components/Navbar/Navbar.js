@@ -163,30 +163,3 @@ function Navbar(props) {
 }
 
 export default Navbar;
-
-
-
-
-/* 
-          <NavLink
-            to={
-              props.pokemon.id.toString() + "/" + props.pokemon.name.toString()
-            }
-          >
-            <NavImg src={maleIcon} alt="logo" />
-          </NavLink>
-          <NavLink
-            to={
-              props.pokemon.id.toString() + "/" + props.pokemon.name.toString()
-            }
-          >
-            <NavImg src={femaleIcon} alt="logo" />
-          </NavLink>
-          <NavLink
-            to={
-              props.pokemon.id.toString() + "/" + props.pokemon.name.toString()
-            }
-          >
-            <NavImg src={shinyIcon} alt="logo" />
-          </NavLink>
-*/
