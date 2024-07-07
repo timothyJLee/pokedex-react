@@ -48,3 +48,20 @@ export const NavImg = styled.img`
   max-height: 3vh;
   min-height: 30px;
 `;
+
+export const Pokecard = styled.div`
+  background-color: #be71eb;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+`;
+
+export const PokeImg = styled.img`
+  background-color: #fff;
+  border: 2px solid #555;
+`;
