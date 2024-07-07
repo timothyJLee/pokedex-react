@@ -1,5 +1,0 @@
-Title
-Navbar
-Background
-Body
-Elements
