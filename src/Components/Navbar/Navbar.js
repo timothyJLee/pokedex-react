@@ -2,7 +2,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+import { nanoid } from 'nanoid';
+
 //import Sidebar from "../Sidebar/Sidebar";
+import Form from "../Form/Form";
 import "./Navbar.css";
 
 import femaleIcon from "../images/female.png";
@@ -19,14 +22,17 @@ import {
 } from "./NavbarStyledElements";
 
 function Navbar(props) {
-  const [input, setInput] = useState("");
   const [pokeNames, setPokeNames] = useState([]);
+  const [typeNames, setTypeNames] = useState([]);
+  const [strWk, setStrWk] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [typeLoading, setTypeLoading] = useState(true);
+  const [strWkLoading, setstrWkLoading] = useState(true);
   const [error, setError] = useState(null);
   const [validateMsg, setValidateMsg] = useState("Enter PokéName or No.");
   const [sidebar, setSidebar] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => {  //get pokenames
     const getData = async () => {
       try {
         const response = await axios.get(
@@ -44,49 +50,109 @@ function Navbar(props) {
     getData();
   }, []); 
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      document.getElementsByClassName("box")[0].blur();
-      // Set inner text of input box to pokemon name
-    }, 1200);
-    return () => clearTimeout(timer);
-  }, [input]);
-
-  const handleInput = (e) => {
-    setInput(e.target.value);
-    if (isValid(e.target.value)) {
-      props.setUserInput(e.target.value);
-    } else {
-    }
-  };
-
-  const isValid = (input) => {
-    if (!loading) {
-      const numRegEx = /^[0-9]+$/;
-      const alphaRegEx = /^[a-zA-Z]+$/;
-      if (input.match(numRegEx)){
-        if (input <= pokeNames.count && input > 0) {
-          return true;
-        } else{
-          //Set validation msg, "Input number 1 - pokeNames.count"
-        }
-      }      
-    if (input.match(alphaRegEx)) {
-      for (let i = 0; i < pokeNames.count; i++) {
-        if (input === pokeNames.results[i].name) {
-          return true;
-        }
+  useEffect(() => {  //get type names
+    setTypeLoading(true);
+    const getData = async () => {
+      try {
+        const response = await axios.get(
+        `https://pokeapi.co/api/v2/type?limit=100000`);
+        setTypeNames(await response.data);
+        setError(null);
+      } catch (err) {
+        setError(err.message);
+        setTypeNames(null);
+        console.log("The error is " + error);
+      } finally {
+        setTypeLoading(false);
       }
-      // Set validation msg, "Input proper Pokemon name..."
+    };
+    getData();
+  }, []);
+
+  useEffect(() => {  //get strength/weak data
+    setstrWkLoading(true);
+    const getData = async () => {
+      try {
+        let strWkUnique = [];
+        for (let types of props.pokemon.types){
+          const response =  await axios.get(types.type.url);
+          strWkUnique.push(await response.data)
+          setError(null);
+        }
+        setStrWk(strWkUnique);
+      } catch (err) {
+        setError(err.message);
+        setStrWk(null);
+        console.log("The error is " + error);
+      } finally {
+        setstrWkLoading(false);
+      }
+    };
+    getData();
+  }, []);
+  
+  function typeWeaknessTableBuild() {
+    if(!strWkLoading){
+      let typeWeaknessTable = {};
+      if(!typeLoading){
+        typeNames.results.forEach(type => {
+          typeWeaknessTable[type.name] = 1;
+        })
+      }
+
+      strWk.forEach(strwk => {
+        for(const [key,value] of Object.entries(strwk.damage_relations)) {
+          switch(key) {
+            case "double_damage_from" :{
+              value.forEach(dd => {
+                typeWeaknessTable[dd.name] *= 2;
+              });
+            }
+              break;
+            case "half_damage_from" :{
+              value.forEach(hd => {
+                typeWeaknessTable[hd.name] *= .5;
+              });
+            }
+              break;
+            case "no_damage_from" : {
+              value.forEach(nd => {
+                typeWeaknessTable[nd.name] = 0;
+              });
+            }
+              break;
+              default:
+            }
+          }
+        })
+
+        let tpwk = { x4 : [],x2 : [],x : [],x5 : [],x25 : [],x0 : []}
+        for(const [key,value] of Object.entries(typeWeaknessTable)) {
+          if(value == 4) tpwk.x4.push(key);
+          if(value == 2) tpwk.x2.push(key);
+          if(value == 1) tpwk.x.push(key);
+          if(value == .5) tpwk.x5.push(key);
+          if(value == .25) tpwk.x25.push(key);
+          if(value == 0) tpwk.x0.push(key);   
+        }
+
+        let tpwktbJSX = 
+          <>
+      <table>
+        <tbody>
+    <tr><th>4xWeak:</th>{ tpwk.x4.map(x4 => <th key={nanoid()}>{x4}</th>) }</tr>
+    <tr><th>2xWeak:</th>{ tpwk.x2.map(x2 => <th key={nanoid()}>{x2}</th>) }</tr>
+    <tr><th>.5xWeak:</th>{ tpwk.x5.map(x5 => <th key={nanoid()}>{x5}</th>) }</tr>
+    <tr><th>.25xWeak:</th>{ tpwk.x25.map(x25 => <th key={nanoid()}>{x25}</th>) }</tr>
+    <tr><th>NoEffect:</th>{ tpwk.x0.map(x0 => <th key={nanoid()}>{x0}</th>) }</tr>
+    </tbody>
+  </table>
+          </>
+      return tpwktbJSX;
     }
-    return false;
-  };}
+  }
 
   const showSidebar = () => setSidebar(!sidebar);
-  const typelist = props.pokemon.types.map(type => <li>{type.type.name}</li>);
-  const abilitylist = props.pokemon.abilities.map(ability => <li>{ability.ability.name}</li>);
-  const stats = props.pokemon.stats.map(stats => <tr> <th>{stats.stat.name}: </th> <th>{stats.base_stat}</th> </tr>);
-  const moves = props.pokemon.moves.map(moves => <tr> <th>{moves.move.name}: </th> </tr>);
 
   return (
     <>
@@ -123,15 +189,8 @@ function Navbar(props) {
             <span>{props.pokemon.name}</span>
           </NavLink>
         </CenterNav>
+        {!loading ? (<Form key={nanoid()} setUserInput={props.setUserInput} pokeNames={pokeNames} />): <p>loading...</p>}
 
-        <div className="container">
-          <input
-            className="box"
-            type="text"
-            value={input}
-            onChange={handleInput}
-          />
-        </div>
       </NavContainer>
 
       <Pokecard>
@@ -140,24 +199,37 @@ function Navbar(props) {
         
         <ul>
           <p>Type: </p>
-          {typelist}</ul>
+          {props.pokemon.types.map(type => <li key={nanoid()}>{type.type.name}</li>)}</ul>
         <ul>
           <p>Ht/Wt: </p>
-          <li><span>Height: </span>{props.pokemon.height / 10}<span>m</span></li>
-          <li><span>Weight: </span>{props.pokemon.weight / 10}<span>kg</span></li>
+          <li key={nanoid()}><span>Height: </span>{props.pokemon.height / 10}<span>m</span></li>
+          <li key={nanoid()}><span>Weight: </span>{props.pokemon.weight / 10}<span>kg</span></li>
         </ul>
         <p>{props.species.flavor_text_entries[0].flavor_text}</p>
         <ul>
           <p>Abilities: </p>
-          {abilitylist}
+          {props.pokemon.abilities.map(ability => <li key={nanoid()}>{ability.ability.name}</li>)}
         </ul>
         <table>
-          {stats}
+          <tbody>
+          <tr><th>Base Stats:</th></tr>
+          {props.pokemon.stats.map(stats => <tr key={nanoid()}><th>{stats.stat.name}: </th><th>{stats.base_stat}</th></tr>)}
+          </tbody>
         </table>
         <table>
-          {moves}
+          <tbody>
+          <tr><th>Moves:</th></tr>
+          {props.pokemon.moves.map(moves => <tr key={nanoid()}><th>{moves.move.name}: </th></tr>)}
+          </tbody>
         </table>
-      </Pokecard>
+        <table>
+          <tbody>
+          <tr><th>Strengths and Weaknesses:</th></tr>
+      <tr key={nanoid()}><th></th>{props.pokemon.types.map(types => <th key={nanoid()}>{types.type.name}</th>)}</tr>
+      </tbody>
+    </table> 
+    {!strWkLoading ? typeWeaknessTableBuild() : <p>loading...</p>}
+      </Pokecard>    
     </>
   );
 }
